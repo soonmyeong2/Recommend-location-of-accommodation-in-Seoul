@@ -1,3 +1,5 @@
+source code는 private repo
+
 Recommend location of accommodation in Seoul
 =======
 
