@@ -1,0 +1,7 @@
+metastore_db
+derby.log
+*.csv
+part-00000
+*.swp
+.ipynb_checkpoints
+*.log

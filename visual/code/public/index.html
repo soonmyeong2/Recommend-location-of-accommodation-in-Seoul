@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Visualization</title>
+        <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=a2580f8c31e554778c81768424125f38"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="visualization.js"></script>
+
+        <link rel="stylesheet" href="main.css" />
+    </head>
+    <body>
+        <div id="map"></div>
+        
+        <ul id="selector">
+            <li class="selected"><label><input type="radio" name="type" value="t1" onclick="onRadioClick(this)">공시지가</label></li>
+            <li><label><input type="radio" name="type" value="t2" onclick="onRadioClick(this)">생활인구</label></li>
+            <li><label><input type="radio" name="type" value="f1" onclick="onRadioClick(this)">외국인</label></li>
+            <li><label><input type="radio" name="type" value="t3" onclick="onRadioClick(this)">숙박업소</label></li>
+            <li><label><input type="radio" name="type" value="r" onclick="onRadioClick(this)">추천지역</label></li>
+        </ul>
+
+        <input type="range" min="1" max="100" value="50" id="slider" oninput="recolorAll(currentMap)" />
+
+        <ol id="rank">
+        </ol>
+    </body>
+</html>

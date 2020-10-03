@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>행정동 Visualization</title>
+        <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=a2580f8c31e554778c81768424125f38"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <input type="text" id="code" placeholder="행정동 코드" />
+        <button type="button" onclick="display()">표시</button>
+        <div id="map" style="width:500px;height:400px;"></div>
+
+        <script>
+            var container = document.getElementById('map');
+            var options = {
+                center: new daum.maps.LatLng(37.251547, 127.071323),
+                level: 5
+            };
+            
+            var map = new daum.maps.Map(container, options);
+
+            var polygon = new daum.maps.Polygon({
+                path:[], // 그려질 다각형의 좌표 배열입니다
+                strokeWeight: 3, // 선의 두께입니다
+                strokeColor: '#39DE2A', // 선의 색깔입니다
+                strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+                strokeStyle: 'longdash', // 선의 스타일입니다
+                fillColor: '#A2FF99', // 채우기 색깔입니다
+                fillOpacity: 0.7 // 채우기 불투명도 입니다
+            });
+
+            // 지도에 다각형을 표시합니다
+            polygon.setMap(map);
+
+            function display() {
+                var code = document.getElementById('code').value;
+
+                axios.get('/borders/' + code).then(function(response) {
+                    var polygonPath = [];
+
+                    for(var key in response.data) {
+                        var item = response.data[key];
+                        polygonPath.push(new daum.maps.LatLng(item.latitude, item.longtitude));
+                    }
+
+                    var options = {
+                        path: polygonPath, // 그려질 다각형의 좌표 배열입니다
+                        strokeWeight: 3, // 선의 두께입니다
+                        strokeColor: '#39DE2A', // 선의 색깔입니다
+                        strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+                        strokeStyle: 'longdash', // 선의 스타일입니다
+                        fillColor: '#A2FF99', // 채우기 색깔입니다
+                        fillOpacity: 0.7 // 채우기 불투명도 입니다
+                    };
+
+                    polygon.setOptions(options);
+                });
+            }
+        </script>
+    </body>
+</html>
